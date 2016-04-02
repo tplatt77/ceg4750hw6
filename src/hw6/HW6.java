@@ -4,7 +4,7 @@
  * k-anonymity and l-diversity
  */
 package hw6;
-// TESTING
+
 /**
  * INSTRUCTIONS!!!
  * The concepts of k-anonymity and l-diversity are central to data anonymization. 
@@ -22,6 +22,8 @@ package hw6;
  * 
  * Separate the functionality into methods. Use classes if necessary or sensible.
  * Need to get the design points
+ * 
+ * TODO
  */
 
 import java.io.File;
@@ -49,6 +51,7 @@ public class HW6 {
             // I am just printing them
             while (scanner.hasNext()) {
                 System.out.print(scanner.next() + "\t|");
+                
             }
             // Get List of columns of quasi-identifires and sensitive attributes
             // Find k & l
