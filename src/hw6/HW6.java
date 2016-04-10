@@ -87,7 +87,17 @@ public class HW6 {
             // Find k & l
             
             //Suppress name @ Column 2 (1 in Java)
-            
+            List<List <String>> suppressedData = initialData;
+            boolean suppressed = suppressColumn(suppressedData, "Name" );
+            if(suppressed)
+            {
+                System.out.println("With data suppressed: ");
+                printData(suppressedData);
+            }
+            else
+            {
+                System.out.println("Data was not successfully suppressed");
+            }
         }
     }
     
@@ -113,51 +123,66 @@ public class HW6 {
             //System.out.print("\n\n");
     }
     
-    static boolean suppressColumn(List<List <String>> dataset, String colName)
+    static boolean suppressColumn(List<List <String>> dataSet, String colName)
     {
-        boolean suppressed = false;
+        if(dataSet.isEmpty() || "".equals(colName))
+        {
+            return false;
+        }
+        List<List <String>> anonymizedData = dataSet;
+
+        int columnSuppressed = getColNum(dataSet, colName);
         
-        List<List <String>> anonymizedData = dataset;
-            String columnSensitive = "Name";
-            int columnSuppressed = -1;
-            List<String> colNames = anonymizedData.get(0);
-            System.out.println(columnSensitive);
-            
-            for(int i=0; i < colNames.size(); i++)
-            {
-                System.out.println(colNames.get(i));
-                if(columnSensitive.toLowerCase().compareTo(colNames.get(i).toLowerCase()) == 0)
-                {
-                    columnSuppressed = i;
-                }
-            }
-            
-            System.out.println("Column to suppress = " + columnSuppressed);
-            
-            Iterator iterator = anonymizedData.iterator();
-            while(iterator.hasNext())
-            {
-                //System.out.println(iterator.next());
-                List<String> nextList = (List<String>) iterator.next();
-                Iterator nextIterator = nextList.iterator();
-                while(nextIterator.hasNext())
-                {
-                    String token = (String) nextIterator.next();
-                    //System.out.print(nextIterator.next() + "\t|");
-                }
-                //System.out.println();
-            }
+        Iterator iterator = anonymizedData.iterator();
+        iterator.next(); // Skip the Column Names!
+        while(iterator.hasNext())
+        {
+            //System.out.println(iterator.next());
+            List<String> row = (List<String>) iterator.next();
+            row.set(columnSuppressed, "*");
+        }
         
-        return suppressed;
+        return true;
     }
     
-    static boolean generalizeCol(List <List <String>> dataSet, String colName)
+    static boolean generalizeCol(List <List <String>> dataSet, String colName, boolean isNumeric)
     {
-        boolean generalized = false;
+        if(dataSet.isEmpty() || "".equals(colName))
+        {
+            return false;
+        }
         
         //TODO: Implement generalization algorithm
-        
-        return false;
+        if(isNumeric)
+        {
+            
+        }
+        else
+        {
+            
+        }
+        return true;
     }
     
+    static int getColNum(List <List <String>> dataSet, String colName)
+    {
+        int colNum = -1;
+            
+        List<String> colNames = dataSet.get(0);
+        System.out.println(colName);
+
+        for(int i=0; i < colNames.size(); i++)
+        {
+            System.out.println(colNames.get(i));
+            if(colName.toLowerCase().compareTo(colNames.get(i).toLowerCase()) == 0)
+            {
+                colNum = i;
+            }
+        }
+        
+        //TESTING
+        System.out.println("Column to suppress = " + colNum);  
+        
+        return colNum;
+    }
 }
