@@ -2,6 +2,8 @@
  *  CEG4750 HW6
  *  Data Anonymization
  * k-anonymity and l-diversity
+ * 
+ * by Thomas Platt
  */
 package hw6;
 
@@ -23,11 +25,16 @@ package hw6;
  * Separate the functionality into methods. Use classes if necessary or sensible.
  * Need to get the design points
  * 
- * TODO
+ * References:
+ *  For scanning input: 
+ * http://stackoverflow.com/questions/15183761/how-to-check-the-end-of-line-using-scanner
  */
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -42,17 +49,53 @@ public class HW6 {
      */
     public static void main(String[] args) throws FileNotFoundException{
         //Set the delimiter used in the file
+        List<List <String>> initialDataset = new ArrayList<>();
+        
+        Scanner keyboardInput = new Scanner(System.in);
+        //Input prompt
+        // TAKE INPUT HERE, name of dataset file.
+        
         try ( // Read in CSV file
-        //Get scanner instance
-                Scanner scanner = new Scanner(new File("test.csv"))) {
-            //Set the delimiter used in the file
-            scanner.useDelimiter(",");
-            // Get all tokens and store them in data structure
-            // I am just printing them
-            while (scanner.hasNext()) {
-                System.out.print(scanner.next() + "\t|");
+                //Get  File scanner instance
+                Scanner fileScanner = new Scanner(new File("test.csv"))) {
+            
+            
+            while(fileScanner.hasNextLine())
+            {
+                String line = fileScanner.nextLine();
+                List<String> newRow = new ArrayList<>();
                 
+                try (Scanner lineScanner = new Scanner(line)) {
+                    while(lineScanner.hasNext())
+                    {
+                        lineScanner.useDelimiter(",");
+                        String token = lineScanner.next();
+                        newRow.add(token);
+                        System.out.print(token + "\t|");
+                    }
+                    
+                    initialDataset.add(newRow);
+                    System.out.println();
+                }
+            } 
+            fileScanner.close();
+            
+            System.out.print("\n\n");
+            
+            // Iterate over dataset ArrayList
+            Iterator iterator = initialDataset.iterator();
+            while(iterator.hasNext())
+            {
+                //System.out.println(iterator.next());
+                List<String> nextList = (List<String>) iterator.next();
+                Iterator nextIterator = nextList.iterator();
+                while(nextIterator.hasNext())
+                {
+                    System.out.print(nextIterator.next() + "\t|");
+                }
+                System.out.println();
             }
+            
             // Get List of columns of quasi-identifires and sensitive attributes
             // Find k & l
         }
