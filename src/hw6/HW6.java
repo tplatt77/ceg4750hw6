@@ -49,7 +49,7 @@ public class HW6 {
      */
     public static void main(String[] args) throws FileNotFoundException{
         //Set the delimiter used in the file
-        List<List <String>> initialDataset = new ArrayList<>();
+        List<List <String>> initialData = new ArrayList<>();
         
         Scanner keyboardInput = new Scanner(System.in);
         //Input prompt
@@ -71,19 +71,33 @@ public class HW6 {
                         lineScanner.useDelimiter(",");
                         String token = lineScanner.next();
                         newRow.add(token);
-                        System.out.print(token + "\t|");
+                        //System.out.print(token + "\t|");
                     }
                     
-                    initialDataset.add(newRow);
-                    System.out.println();
+                    initialData.add(newRow);
+                    //System.out.println();
                 }
             } 
             fileScanner.close();
             
-            System.out.print("\n\n");
+            //Display initialData
+            printData(initialData);
             
+            // Get List of columns of quasi-identifires and sensitive attributes
+            // Find k & l
+            
+            //Suppress name @ Column 2 (1 in Java)
+            
+        }
+    }
+    
+    static void printData(List<List <String>> dataset)
+    {
+            //System.out.print("\n\n");
+            
+            //Test by displaying
             // Iterate over dataset ArrayList
-            Iterator iterator = initialDataset.iterator();
+            Iterator iterator = dataset.iterator();
             while(iterator.hasNext())
             {
                 //System.out.println(iterator.next());
@@ -96,9 +110,54 @@ public class HW6 {
                 System.out.println();
             }
             
-            // Get List of columns of quasi-identifires and sensitive attributes
-            // Find k & l
-        }
+            //System.out.print("\n\n");
+    }
+    
+    static boolean suppressColumn(List<List <String>> dataset, String colName)
+    {
+        boolean suppressed = false;
+        
+        List<List <String>> anonymizedData = dataset;
+            String columnSensitive = "Name";
+            int columnSuppressed = -1;
+            List<String> colNames = anonymizedData.get(0);
+            System.out.println(columnSensitive);
+            
+            for(int i=0; i < colNames.size(); i++)
+            {
+                System.out.println(colNames.get(i));
+                if(columnSensitive.toLowerCase().compareTo(colNames.get(i).toLowerCase()) == 0)
+                {
+                    columnSuppressed = i;
+                }
+            }
+            
+            System.out.println("Column to suppress = " + columnSuppressed);
+            
+            Iterator iterator = anonymizedData.iterator();
+            while(iterator.hasNext())
+            {
+                //System.out.println(iterator.next());
+                List<String> nextList = (List<String>) iterator.next();
+                Iterator nextIterator = nextList.iterator();
+                while(nextIterator.hasNext())
+                {
+                    String token = (String) nextIterator.next();
+                    //System.out.print(nextIterator.next() + "\t|");
+                }
+                //System.out.println();
+            }
+        
+        return suppressed;
+    }
+    
+    static boolean generalizeCol(List <List <String>> dataSet, String colName)
+    {
+        boolean generalized = false;
+        
+        //TODO: Implement generalization algorithm
+        
+        return false;
     }
     
 }
