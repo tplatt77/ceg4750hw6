@@ -45,7 +45,8 @@ public class HW6 {
     public static void main(String[] args) throws FileNotFoundException {
         //Set the delimiter used in the file
         List<List<String>> initialData = new ArrayList<>();
-
+        List<List<String>> suppressedData, anonymizedData;
+        
         Scanner keyboardInput = new Scanner(System.in);
         //Input prompt
         // TAKE INPUT HERE, name of dataset file.
@@ -78,7 +79,7 @@ public class HW6 {
             // Get List of columns of quasi-identifires and sensitive attributes
             // Find k & l
             //Suppress name @ Column 2 (1 in Java)
-            List<List<String>> suppressedData = initialData;
+            suppressedData = initialData;
             boolean suppressed = suppressColumn(suppressedData, "Name");
             if (suppressed) {
                 System.out.println("With data suppressed: ");
@@ -86,7 +87,10 @@ public class HW6 {
             } else {
                 System.out.println("Data was not successfully suppressed");
             }
+               
         }
+        
+        generalizeCol(suppressedData, "Age", true);
     }
 
     static void printData(List<List<String>> dataset) {
@@ -106,6 +110,14 @@ public class HW6 {
         }
 
         //System.out.print("\n\n");
+    }
+    
+    static void printList(List list)
+    {
+        Iterator iterator = list.iterator();
+        while (iterator.hasNext()) {
+           System.out.print(iterator.next() + " ");
+        }
     }
 
     static boolean suppressColumn(List<List<String>> dataSet, String colName) {
@@ -148,6 +160,10 @@ public class HW6 {
                 numbers.add(Integer.parseInt(row.get(columnGeneralized)));
             }
            
+            printList(numbers);
+            
+            //Set up ranges
+            
         } 
         else 
         {
